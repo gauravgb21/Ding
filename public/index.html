@@ -3,11 +3,12 @@
 <head>
 <title>Ding</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="/favicon.ico" type="image/x-icon" rel="icon" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
@@ -15,21 +16,18 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-
 body {
   background: #C5DDEB;
   font: 14px/20px "Lato", Arial, sans-serif;
   padding: 5px 0;
   color: white;
 }
-
 .container {
   margin-left: 35% ;
   width: 400px;
   border-radius: 5px;
   margin-top: 0%;
 }
-
 .people-list {
   width: 260px;
   float: left;
@@ -70,7 +68,6 @@ body {
 .people-list .status {
   color: #92959E;
 }
-
 #chat1 {
   left: 0;
   font-size: 12px;
@@ -78,7 +75,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
 .chat {
   width: 450px;
   float: left;
@@ -152,6 +148,7 @@ body {
 }
 .chat .chat-history .my-message {
   background: #94C2ED;
+  overflow-wrap: break-word;
 }
 .chat .chat-history .other-message {
   background: #94C2ED;
@@ -172,6 +169,18 @@ body {
   border-radius: 5px;
   resize: none;
 }
+
+.chat .chat-message textarea {
+
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: none;
+}
+
 .chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
   font-size: 16px;
   color: gray;
@@ -190,36 +199,28 @@ body {
 .chat .chat-message button:hover {
   color: #75b1e8;
 }
-
 .online, .offline, .me {
   margin-right: 3px;
   font-size: 10px;
 }
-
 .online {
   color: #86BB71;
 }
-
 .offline {
   color: #E38968;
 }
-
 .me {
   color: #94C2ED;
 }
-
 .align-left {
   text-align: left;
 }
-
 .align-right {
   text-align: right;
 }
-
 .float-right {
   float: right;
 }
-
 .clearfix:after {
   visibility: hidden;
   display: block;
@@ -228,11 +229,10 @@ body {
   clear: both;
   height: 0;
 }
-
     </style>    
 </head>
     <body style="background: #360033;background: -webkit-linear-gradient(to right, #0b8793, #360033);background: linear-gradient(to right, #0b8793, #360033);">
-        <div id="connect" class="w3-button w3-large w3-padding-medium w3-display-middle" style="padding: 10px; background-color: orange; color: white; width: 150px; text-align: center;cursor: pointer;letter-spacing: 2px; font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;" onclick="mujhechlao()">
+        <div id="connect" class="w3-button w3-large w3-round w3-padding-medium w3-display-middle" style="padding: 10px; background-color: orange; color: white; width: 150px; text-align: center;cursor: pointer;letter-spacing: 2px; font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;" onclick="mujhechlao()">
             Connect <i class="fa fa-eye"></i>
         </div>
 
@@ -253,7 +253,8 @@ body {
       
       <div class="chat-message clearfix">
        <input  type="text" id="handle" placeholder ="Handle" rows="1"></input>
-        <input type="text" id="message" placeholder ="Type your message" rows="1"></input>
+        <!-- <input type="text" id="message" placeholder ="Type your message" rows="1"></input> -->
+        <textarea id="message" placeholder ="Type your message" ></textarea>
         <button id="send">Send</button>
         <button id="disconnect" onclick="mujhebhichlao()">Disconnect</button>
       </div> <!-- end chat-message -->
@@ -287,12 +288,16 @@ body {
   <script src="/chat.js"></script>
 </body>
     <script type="text/javascript">
+      var dis_socket;
         function mujhechlao() {
+            var socket=io.connect('http://localhost:4000');
+            dis_socket=socket;
             document.getElementById("connect").style.display= "none";
             document.getElementById("disconnect").style.display= "block";
             document.getElementById("boxchat").style.display= "block";
             document.getElementById("disconnect").style.left= "10px";
             document.getElementById("chat").style.filter= "blur(0)";
+            setSession(socket);
         }
         function mujhebhichlao() {
             document.getElementById("connect").style.display= "block";
@@ -300,6 +305,5 @@ body {
             document.getElementById("boxchat").style.display= "none";
             document.getElementById("chat").style.filter= "blur(5px)";
         }
-
     </script>
 </html>
