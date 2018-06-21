@@ -18,12 +18,16 @@ console.log("Made a connection!");
 // check if socket id is available in the map
 
 if(!(socket.id in map)){
-
+ var va;
+ io.to(socket.id).emit('look_connection',va);
      if(available)
     {
 	    map[socket.id]=available_id;
 	    map[available_id]=socket.id;
 	    available=0;
+	    var val;
+	    io.to(socket.id).emit('made_connection',val);
+	    io.to(map[socket.id]).emit('made_connection',val);
     }
     else
     {
@@ -37,11 +41,23 @@ if(!(socket.id in map)){
 
 socket.on('chat',function(data){
 io.to(map[socket.id]).emit('chat',data);
-io.to(socket.id).emit('chat',data);
+io.to(socket.id).emit('your_chat',data);
 });
 
 socket.on('typing',function(data){
  io.to(map[socket.id]).emit('typing',data);
+});
+
+socket.on('disconnect',function(data){
+ if(available_id==socket.id)
+ {
+ 	available=0;
+ 	available_id="";
+ }
+ io.to(map[socket.id]).emit('disconnect',data);
+ io.to(socket.id).emit('you_disconnect',data);
+ delete map[map[socket.id]];
+ delete map[socket.id];
 });
 
 

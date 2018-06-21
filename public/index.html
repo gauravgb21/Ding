@@ -151,10 +151,12 @@ body {
   overflow-wrap: break-word;
 }
 .chat .chat-history .other-message {
-  background: #94C2ED;
+  background: #d9d9db;
+  color: #4c4b4b;
+  overflow-wrap: break-word;
 }
 .chat .chat-history .other-message:after {
-  border-bottom-color: #94C2ED;
+  border-bottom-color: #d9d9db;
   left: 93%;
 }
 .chat .chat-message {
@@ -252,8 +254,6 @@ body {
       </div> <!-- end chat-history -->
       
       <div class="chat-message clearfix">
-       <input  type="text" id="handle" placeholder ="Handle" rows="1"></input>
-        <!-- <input type="text" id="message" placeholder ="Type your message" rows="1"></input> -->
         <textarea id="message" placeholder ="Type your message" ></textarea>
         <button id="send">Send</button>
         <button id="disconnect" onclick="mujhebhichlao()">Disconnect</button>
@@ -276,8 +276,7 @@ body {
       </div> <!-- end chat-history -->
       
       <div class="chat-message clearfix">
-       <input  type="text" id="handle" placeholder ="Handle" rows="1"></input>
-        <input type="text" id="message" placeholder ="Type your message" rows="1"></input>
+        <textarea id="message" placeholder ="Type your message" ></textarea>
         <button id="send">Send</button>
         <button id="disconnect" onclick="mujhebhichlao()">Disconnect</button>
       </div> <!-- end chat-message -->
@@ -300,10 +299,13 @@ body {
             setSession(socket);
         }
         function mujhebhichlao() {
-            document.getElementById("connect").style.display= "block";
-            document.getElementById("disconnect").style.display= "none";
-            document.getElementById("boxchat").style.display= "none";
-            document.getElementById("chat").style.filter= "blur(5px)";
+            var val;
+            dis_socket.emit('disconnect',val);
+            dis_socket.disconnect();
+            // document.getElementById("connect").style.display= "block";
+            // document.getElementById("disconnect").style.display= "none";
+            // document.getElementById("boxchat").style.display= "none";
+            // document.getElementById("chat").style.filter= "blur(5px)";
         }
     </script>
 </html>
