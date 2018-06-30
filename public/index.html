@@ -269,7 +269,6 @@ body {
           <div class="chat-with"></div>
         </div>
       </div> <!-- end chat-header -->
-      
       <div class="chat-history" id="window" style="background-color: #fbfcfc">
         <div id="output"></div>
         <div id="feedback"></div>
@@ -289,7 +288,7 @@ body {
     <script type="text/javascript">
       var dis_socket;
         function mujhechlao() {
-            var socket=io.connect('http://localhost:4000');
+            var socket=io.connect('http://https://dingg.herokuapp.com/');
             dis_socket=socket;
             document.getElementById("connect").style.display= "none";
             document.getElementById("disconnect").style.display= "block";
