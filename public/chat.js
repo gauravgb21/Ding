@@ -6,10 +6,12 @@ var output=document.getElementById('output');
 var output1=document.getElementById('output1');
 var feedback=document.getElementById('feedback');
 btn.addEventListener('click',function(){
+ if(message.value.length!=0){	
    socket.emit('chat',{
    message:message.value,
    });
-   message.value=" ";
+  }
+   message.value="";
 	});
 
 message.addEventListener('keypress',function(){
@@ -23,11 +25,15 @@ message.addEventListener('keypress',function(){
 socket.on('chat',function(data){
 feedback.innerHTML="";	
 output.innerHTML+='<p align="right"><strong>'+"Stranger"+'</strong>'+'</p>'+'<div class="message other-message" width: 100px;>'+ data.message+'</div>';
+var objDiv = document.getElementById("window");
+objDiv.scrollTop = objDiv.scrollHeight;
 });
 
 socket.on('your_chat',function(data){
 feedback.innerHTML="";	
 output.innerHTML+='<p><strong>'+"You"+'</strong>'+'</p>'+'<div class="message my-message" width: 100px;>'+ data.message+'</div>';
+var objDiv = document.getElementById("window");
+objDiv.scrollTop = objDiv.scrollHeight;
 });
 
 socket.on('typing',function(data){
